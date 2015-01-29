@@ -152,19 +152,6 @@
 		}
 
 		/**
-		 * Если заданно имя таблицы, то преобразовать ее в строку SQL
-		 * Иначе вызвать исключение
-		 * @return String
-		 */
-		protected function isTableNameThenGetStrQuery(){
-			if(isset($this->tableName)&&!empty($this->tableName)){
-				return " {$this->tableName} ";
-			}else{
-				throw new Exception("Не указано имя таблицы");
-			}
-		}
-
-		/**
 		 * Метод строит на основании имеющегося запроса, строку SQL с запросом к БД
 		 * @return String Строка с запросом
 		 */

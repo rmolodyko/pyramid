@@ -26,4 +26,4 @@
 
 	}
 
-	print_r((new SelectMappedQuery(new Movies))->order('id')->limit(2,1)->execute());
+	print_r((new SelectMappedQuery(new Movies))->order('id')->execute());
