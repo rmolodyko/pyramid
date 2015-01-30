@@ -1,5 +1,4 @@
 <?php
-	require_once("/var/www/other/ORM/abstract/SelectQuery.php");
 
 	/**
 	 * Класс предназначен для выборки не отображенных данных с БД
@@ -19,11 +18,3 @@
 			return $this;
 		}
 	}
-
-	class Model{}
-
-	class Movies extends Model{
-
-	}
-
-	print_r((new SelectMappedQuery(new Movies))->order('id')->execute());

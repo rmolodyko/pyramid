@@ -1,5 +1,4 @@
 <?php
-	require_once("/var/www/other/helper/ConfRegister.php");
 
 	class DBHelper{
 
