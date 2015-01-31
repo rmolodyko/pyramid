@@ -34,5 +34,11 @@
 	print_r((new DeleteMappedQuery(new Movies))->where(['id'=>$last_id])->execute());
 	print "----\n";
 */
-	(new UpdateMappedQuery(new Movies))->where(['id'=>262])->execute();
-	print_r((new SelectNativeQuery('movies'))->limit(0,1)->order('id',true)->execute());
+	//(new UpdateMappedQuery(new Movies))->where(['id'=>262])->execute();
+	print_r(
+		(new SelectNativeQuery('stars'))
+		->with('movie_star')
+		->on([':second:.id_movie' => 270, ':first:.id' => [':second:.id_star']])
+		->limit(0,3)->order(':first:.id')
+		->execute()
+		);

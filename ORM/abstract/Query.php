@@ -78,7 +78,7 @@
 			if(isset($this->whereAttributes)&&!empty($this->whereAttributes)){
 				$valueQuery = [];
 				foreach($this->whereAttributes as $k => $v){
-					$valueQuery["$k"] = $v;
+					$valueQuery[str_replace(".","_",$k)] = $v;
 				}
 				return $valueQuery;
 			}else{
@@ -94,7 +94,7 @@
 			if(isset($this->whereAttributes)&&!empty($this->whereAttributes)){
 				$queryString = '';
 				foreach($this->whereAttributes as $k => $v){
-					$queryString .= "$k = :$k";
+					$queryString .= "$k = :".str_replace(".","_",$k);
 				}
 				return " WHERE $queryString ";
 			}else{
