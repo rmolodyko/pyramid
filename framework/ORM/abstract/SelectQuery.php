@@ -267,8 +267,8 @@
 		 * @return String Строка с запросом
 		 */
 		protected function buildQueryString(){
-			print_r($this->relatedTable);
-			if($this->relatedTable === null){
+
+			if($this->relatedTable === null){//Простой запрос
 				$queryString  = ' SELECT ';
 				$queryString .= $this->isKeysThenGetStrQuery();
 				$queryString .= ' FROM ';
@@ -276,7 +276,8 @@
 				$queryString .= $this->isWhereThenGetStrQuery();
 				$queryString .= $this->isOrderThenGetStrQuery();
 				$queryString .= $this->isLimitThenGetStrQuery();
-			}else{
+
+			}else{//Связанный запрос
 
 				$firstTableName = $this->isTableNameThenGetStrQuery();
 				$secondTableName = $this->isWithThenGetStrQuery();
@@ -291,6 +292,7 @@
 				$queryString .= $this->isOrderThenGetStrQuery();
 				$queryString .= $this->isLimitThenGetStrQuery();
 
+				//Меняем алиасы на имена таблиц
 				$queryString = str_replace($this->aliasFirstTable,trim($firstTableName),$queryString);
 				$queryString = str_replace($this->aliasSecondTable,trim($secondTableName),$queryString);
 			}

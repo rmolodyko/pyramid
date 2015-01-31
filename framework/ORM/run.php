@@ -1,6 +1,6 @@
 <?php
 
-	require_once("/var/www/other/helper/ConfRegister.php");
+	require_once("/var/www/other/ORM/helper/ConfRegister.php");
 
 	print "\n";
 	spl_autoload_register(function($class_name){
