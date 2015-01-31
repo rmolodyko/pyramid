@@ -8,6 +8,9 @@
 				'user_db'=>'root',
 				'password_db'=>'muha1990',
 
+				'include_path'=>['abstract','helper','mapped','model','native'],
+				'base_path'=>'/var/www/other/ORM/',
+
 			];
 			return $param[$k];
 		}

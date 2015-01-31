@@ -27,10 +27,12 @@
 		public $format = 'DVD';
 	}
 
-	$last_id = (new InsertMappedQuery(new Movies))->execute();
+	/*$last_id = (new InsertMappedQuery(new Movies))->execute();
 	print_r($last_id);
 	print_r((new SelectNativeQuery('movies'))->where(['id'=>$last_id])->execute());
 	
 	print_r((new DeleteMappedQuery(new Movies))->where(['id'=>$last_id])->execute());
 	print "----\n";
-	print_r((new SelectNativeQuery('movies'))->where(['id'=>$last_id])->execute());
+*/
+	(new UpdateMappedQuery(new Movies))->where(['id'=>262])->execute();
+	print_r((new SelectNativeQuery('movies'))->limit(0,1)->order('id',true)->execute());

@@ -21,10 +21,11 @@
 
 		/**
 		 * Метод который делает удаление из БД
-		 * @return Void В случае неудачи произойдет ошибка
+		 * @return Integer Колличество обработанных записей
 		 */
 		public function execute(){
 			$STH =  $this->getDBHandler()->prepare($this->buildQueryString());
 			$STH->execute($this->isWhereThenGetValueQuery());
+			return $STH->rowCount();
 		}
 	}
