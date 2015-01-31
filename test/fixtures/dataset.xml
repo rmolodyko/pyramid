@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+	<movies id="1" title="Lost" year="2000" format="DVD"/>
+	<movies id="2" title="Mask" year="2001" format="Blu-Ray"/>
+	<movies id="3" title="War" year="2000" format="VHS"/>
+	<movies id="4" title="Brave new world" year="2018" format="DVD"/>
+	<movies id="5" title="City" year="2009" format="DVD"/>
+	<movies id="6" title="Wife" year="1999" format="Blu-Ray"/>
+
+	<stars id="1" first_name="Ruslan" last_name="Molodyko"/>
+	<stars id="2" first_name="Alan" last_name="Arkin"/>
+	<stars id="3" first_name="Barbara" last_name="Hershey"/>
+	<stars id="4" first_name="Clevon" last_name="Little"/>
+	<stars id="5" first_name="Dave" last_name="Geolz"/>
+	<stars id="6" first_name="Alan" last_name="Rains"/>
+	<stars id="7" first_name="Connie" last_name="Nielson"/>
+
+	<movie_star id="1" id_movie="1" id_star="1"/>
+	<movie_star id="2" id_movie="1" id_star="2"/>
+	<movie_star id="3" id_movie="1" id_star="3"/>
+	<movie_star id="4" id_movie="1" id_star="4"/>
+	<movie_star id="5" id_movie="1" id_star="5"/>
+	<movie_star id="6" id_movie="1" id_star="6"/>
+	<movie_star id="7" id_movie="1" id_star="7"/>
+	<movie_star id="8" id_movie="6" id_star="1"/>
+	<movie_star id="9" id_movie="5" id_star="2"/>
+	<movie_star id="10" id_movie="2" id_star="3"/>
+	<movie_star id="11" id_movie="2" id_star="4"/>
+	<movie_star id="12" id_movie="2" id_star="5"/>
+	<movie_star id="13" id_movie="2" id_star="6"/>
+	<movie_star id="14" id_movie="5" id_star="7"/>
+	<movie_star id="15" id_movie="3" id_star="1"/>
+	<movie_star id="16" id_movie="3" id_star="2"/>
+	<movie_star id="17" id_movie="3" id_star="3"/>
+	<movie_star id="18" id_movie="5" id_star="4"/>
+	<movie_star id="19" id_movie="7" id_star="5"/>
+	<movie_star id="20" id_movie="7" id_star="6"/>
+	<movie_star id="21" id_movie="6" id_star="7"/>
+</dataset>
