@@ -39,17 +39,31 @@
 		}
 
 		/**
-		 * Хранит номера блоков try
+		 * Хранит номера блоков try, в которых произошла предполагаемая ошибка
 		 * @var Array
 		 */
-		protected $errNum = [];
+		protected $issetExpectedError = [];
+
+		/**
+		 * Хранит номера блоков try, в которых не произошла ошибка и которая не ожидалась
+		 * @var Array
+		 */
+		protected $issetError = [];
 
 		/**
 		 * Метод вызывается в самом начале блока try, ожидая исключение
 		 * @param  Integer $n Номер try блока
 		 */
 		protected function expectError($n){
-			$this->errNum[$n] = true;
+			$this->issetExpectedError[$n] = false;
+		}
+
+		/**
+		 * Метод вызывается в самом начале блока try, в котором НЕ ожидается исключение
+		 * @param  Integer $n Номер try блока
+		 */
+		protected function notExpectError($n){
+			$this->issetError[$n] = false;
 		}
 
 		/**
@@ -57,19 +71,35 @@
 		 * @param  Integer $n Номер try блока
 		 */
 		protected function issuedError($n){
-			$this->errNum[$n] = false;
+			$this->issetExpectedError[$n] = true;
+			if(isset($this->issetError[$n]))
+			$this->issetError[$n] = true;
 		}
 
 		/**
 		 * Если есть блок try который не выдал исключение то тест завершается неудачей со списком всех неверных блоков try
 		 */
 		protected function throwErrors(){
-			if(in_array(true,$this->errNum)){
-				$arrKey = [];
-				foreach($this->errNum as $key => $value){
-					if($value) $arrKey[] = $key;
+			$arrKey1 = [];
+			if(in_array(false,$this->issetExpectedError)){
+				foreach($this->issetExpectedError as $key => $value){
+					if($value === false) $arrKey1[] = $key;
 				}
-				$this->fail("Не произошло ожидаемого исключения в блоках try - {".implode(",",$arrKey)."}");
 			}
+			$arrKey2 = [];
+			if(in_array(true,$this->issetError)){
+				foreach($this->issetError as $key => $value){
+					if($value === true) $arrKey2[] = $key;
+				}
+			}
+			$str = '';
+			if(!empty($arrKey1)){
+				$str = "Не произошло ожидаемого исключения в блоках try - {".implode(",",$arrKey1)."}\n";
+			}
+			if(!empty($arrKey2)){
+				$str .= "Произошла непредвиденная ошибка в блоках try - {".implode(",",$arrKey2)."}\n";
+			}
+			if($str !== '')
+				$this->fail($str);
 		}
 }

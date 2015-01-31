@@ -50,6 +50,7 @@
 		/**
 		 * Метод устанавливает параметры для запроса с WHERE
 		 * @param  Array|null $attributes Массив параметров ['key'=>'value',...]
+		 *                                Можно также передать пустой массив это равносильно null
 		 * @return SelectQuery      Возвращает объект для дальнейшего вызова методов над ним
 		 */
 		public function where(Array $attributes = null){
@@ -92,11 +93,11 @@
 		 */
 		protected function isWhereThenGetStrQuery(){
 			if(isset($this->whereAttributes)&&!empty($this->whereAttributes)){
-				$queryString = '';
+				$arrQuery = [];
 				foreach($this->whereAttributes as $k => $v){
-					$queryString .= "$k = :".str_replace(".","_",$k);
+					$arrQuery[] = "$k = :".str_replace(".","_",$k);
 				}
-				return " WHERE $queryString ";
+				return " WHERE ".implode(' AND ',$arrQuery);
 			}else{
 				return '';
 			}

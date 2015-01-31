@@ -4,7 +4,7 @@
 	<movies id="2" title="Mask" year="2001" format="Blu-Ray"/>
 	<movies id="3" title="War" year="2000" format="VHS"/>
 	<movies id="4" title="Brave new world" year="2018" format="DVD"/>
-	<movies id="5" title="City" year="2009" format="DVD"/>
+	<movies id="5" title="City" year="2000" format="DVD"/>
 	<movies id="6" title="Wife" year="1999" format="Blu-Ray"/>
 
 	<stars id="1" first_name="Ruslan" last_name="Molodyko"/>

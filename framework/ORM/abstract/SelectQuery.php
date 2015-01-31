@@ -58,8 +58,9 @@
 
 		/**
 		 * Метод устанавливает какие имена столбцов нужно вывести в запросе
-		 * @param  Array|null $keys  Массив параметров ['key1',...]
+		 * @param  Array|null $keys  Массив параметров ['key1',...], разрешается передавать пустой массив
 		 * @return SelectQuery Возвращает объект для дальнейшего вызова методов над ним
+		 * @todo Добавить поддержку задавать поля связанной таблицы
 		 */
 		public function keys(Array $keys = null){
 			$this->keys = $keys;
@@ -72,8 +73,12 @@
 		 * @return SelectQuery Возвращает объект для дальнейшего вызова методов над ним
 		 */
 		public function with($with = null){
-			if($with !== null)
+			if($with !== null){
 				$this->relatedTable = strtolower(trim($with));
+			}else{
+				throw new Exception("Ожидалось имя таблицы");
+				
+			}
 			return $this;
 		}
 
@@ -92,11 +97,14 @@
 
 		/**
 		 * Метод устанавливает какие имена столбцов нужно вывести в запросе
-		 * @param  String  $column   Имя столбца
+		 * @param  String|Integer  $column   Имя столбца, или номер столбца
 		 * @param  Boolean $sortDesc Сортировать в порядке убывания или возрастания
 		 * @return SelectQuery Возвращает объект для дальнейшего вызова методов над ним
 		 */
 		public function order($column,$sortDesc = false){
+			if((!is_string($column)&&!is_numeric($column))||(!is_bool($sortDesc))){
+				throw new Exception("Переданны неверные данные");
+			}
 			$this->orderColumn = [$column,$sortDesc];
 			return $this;
 		}
@@ -110,8 +118,14 @@
 		 * @return SelectQuery Возвращает объект для дальнейшего вызова методов над ним
 		 */
 		public function limit($limitStart,$limitRange = null){
+			if(!is_numeric($limitStart)){
+				throw new Exception("Переданны неверные данные");
+			}
 			$this->limit = [$limitStart];
 			if($limitRange !== null){
+				if(!is_numeric($limitRange)){
+					throw new Exception("Переданны неверные данные");
+				}
 				$this->limit[1] = $limitRange;
 			}
 			return $this;
@@ -138,8 +152,7 @@
 			if(isset($this->relatedTable)&&!empty($this->relatedTable)){
 				return $this->relatedTable;
 			}else{
-				throw new Exception("Имя связанной таблицы не указано");
-				
+				return '';
 			}
 		}
 
@@ -162,7 +175,10 @@
 		 */
 		protected function isKeysThenGetStrQuery(){
 			if(isset($this->keys)&&!empty($this->keys)){
-				return " ".implode(" , ",$this->keys)." ";
+				foreach($this->keys as $key => $value){
+					if(!is_string($value)) throw new Exception("Переданны неверные данные");
+				}
+				return " {$this->isTableNameThenGetStrQuery()}.".implode(" , {$this->isTableNameThenGetStrQuery()}.",$this->keys)." ";
 			}else{
 				return " {$this->isTableNameThenGetStrQuery()}.* ";
 			}
@@ -305,6 +321,7 @@
 		 * @return [type] [description]
 		 */
 		public function execute(){
+			//print_r($this->buildQueryString());
 			$STH =  $this->getDBHandler()->prepare($this->buildQueryString());
 
 			//Сливаем bind параметры разных видов запроса в один массив
@@ -312,7 +329,7 @@
 			$arr2 = $this->isWhereThenGetValueQuery();
 			$arr1 = is_array($arr1) ? $arr1 : [];
 			$arr2 = is_array($arr2) ? $arr2 : [];
-
+			//print_r(array_merge($arr1,$arr2));
 			$STH->execute(array_merge($arr1,$arr2));
 			$mw = [];
 			$STH->setFetchMode(PDO::FETCH_ASSOC);
