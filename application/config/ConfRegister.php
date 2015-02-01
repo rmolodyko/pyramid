@@ -9,7 +9,8 @@
 				'password_db'=>'muha1990',
 
 				'include_path'=>['abstract','helper','mapped','model','native'],
-				'base_path'=>'/var/www/pyramid/framework/ORM/',
+				'base_path'=>'/var/www/pyramid/framework/orm/',
+				'base_path_to_test'=>'/var/www/pyramid/test_framework/tests/orm/',
 
 			];
 			return $param[$k];

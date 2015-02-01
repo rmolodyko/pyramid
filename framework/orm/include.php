@@ -9,4 +9,10 @@
 				require_once($pathToClass);
 			}
 		}
+		foreach(ConfRegister::getParam('include_path') as $v){
+			$pathToClass = ConfRegister::getParam('base_path_to_test').$v.DIRECTORY_SEPARATOR.$class_name.'.php';
+			if(file_exists($pathToClass)){
+				require_once($pathToClass);
+			}
+		}
 	});
