@@ -319,6 +319,8 @@
 		/**
 		 * Метод который делает запрос в БД, и возвращает результат
 		 * @return [type] [description]
+		 * @todo  Сделать обертку, она должна корректно работать с ф. count
+		 *        В тестах добавить использование обертки
 		 */
 		public function execute(){
 			//print_r($this->buildQueryString());

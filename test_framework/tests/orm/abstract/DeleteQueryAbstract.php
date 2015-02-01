@@ -11,7 +11,7 @@
 
 			$this->assertEquals($rowCountAfter,$rowCountBefore-1);
 		}
-		
+
 		public function testDeleteAll(){
 
 			$this->getObjQuery()->execute();
