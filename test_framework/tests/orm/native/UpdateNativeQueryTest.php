@@ -7,4 +7,4 @@
 		public function getObjQuery(){
 			return new UpdateNativeQuery('movies');
 		}
-	}
+	} 
