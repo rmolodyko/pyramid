@@ -36,6 +36,7 @@
 				$queryString = '';
 				$newArray = [];
 				foreach($this->values as $key => $value){
+					if($value === null) continue; //Реакция на @todo
 					$newArray[] = "$key = :{$key}_unique";
 				}
 				$queryString = ' '.implode(' , ',$newArray).' ';
@@ -53,6 +54,7 @@
 			if(isset($this->values)&&!empty($this->values)){
 				$newArray = [];
 				foreach($this->values as $key => $value){
+					if($value === null) continue; //Реакция на @todo
 					$newArray["{$key}_unique"] = $value;
 				}
 				return $newArray;

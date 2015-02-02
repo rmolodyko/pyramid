@@ -5,6 +5,8 @@
 	 * 
 	 * @package orm.mapped
 	 * @author Ruslan Molodyko
+	 * @todo Решить должен ли класс обрабатывать не инициализированные поля(по умолчанию равны null) экземпляра
+	 * если да, то изменить поведение тестов
 	 */
 	class UpdateMappedQuery extends UpdateQuery{
 		/**
