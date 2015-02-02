@@ -2,7 +2,7 @@
 
 	/**
 	 * Класс предназначен для вставки данных в БД, отображенных данных
-	 * 
+	 *  
 	 * @package orm.mapped
 	 * @author Ruslan Molodyko
 	 */
