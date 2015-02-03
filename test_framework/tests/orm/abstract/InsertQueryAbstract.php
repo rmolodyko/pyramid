@@ -1,8 +1,11 @@
 <?php
 
+	namespace test\framework\orm\query;
+	use \framework\orm\query\SelectNativeQuery;
+
 	require_once(dirname(__FILE__).'/../../../lib/include.php');
 
-	class InsertQueryAbstract extends DBTestClass{
+	class InsertQueryAbstract extends \test\framework\helper\DBTestClass{
 
 		public function testCountRow(){
 			$rowCountBefore = $this->getConnection()->getRowCount('movies');
@@ -36,7 +39,7 @@
 				$this->getObjQuery()
 					->values(['title'=>'New movies','format'=>'DVD','year'=>9991,'fggg'=>'4'])
 					->execute();
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(1);
 			}
 
@@ -45,7 +48,7 @@
 				$this->getObjQuery()
 					->values([])
 					->execute();
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(2);
 			}
 
@@ -53,7 +56,7 @@
 				$this->expectError(3);
 				$this->getObjQuery()->values(['id'=>100,'title'=>'New movies','format'=>'DVD','year'=>9991])->execute();
 				$this->getObjQuery()->values(['id'=>100,'title'=>'New movies','format'=>'DVD','year'=>9991])->execute();
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(3);
 			}
 
@@ -61,21 +64,21 @@
 				$this->expectError(4);
 				$this->getObjQuery()->values(['id'=>null,'title'=>'New movies','format'=>'DVD','year'=>9991])->execute();
 				
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(4);
 			}
 
 			try{
 				$this->expectError(5);
 				$this->getObjQuery()->execute();
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(5);
 			}
 
 			try{
 				$this->expectError(6);
 				$this->getObjQuery()->values(['title'=>'New movies','format'=>'DVD','year'=>null])->execute();
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(6);
 			}
 
@@ -83,7 +86,7 @@
 				$this->expectError(7);
 				$this->getObjQuery()->values(['title'=>'New movies','format','year'=>'1000'])->execute();
 			
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(7);
 			}
 

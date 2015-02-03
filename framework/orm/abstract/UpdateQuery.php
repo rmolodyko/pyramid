@@ -1,5 +1,6 @@
 <?php
- 
+
+	namespace framework\orm\query;
 	/**
 	 * Класс предназначен для обновления данных в БД
 	 * 
@@ -21,7 +22,7 @@
 		 */
 		public function set(Array $values){
 			if(!isset($values)||empty($values)){
-				throw new Exception("Отсутствуют значения параметров для вставки");
+				throw new \Exception("Отсутствуют значения параметров для вставки");
 			}
 			$this->values = $values;
 			return $this;
@@ -42,7 +43,7 @@
 				$queryString = ' '.implode(' , ',$newArray).' ';
 				return $queryString;
 			}else{
-				throw new Exception("Отсутствуют значения параметров для вставки");
+				throw new \Exception("Отсутствуют значения параметров для вставки");
 			}
 		}
 
@@ -59,7 +60,7 @@
 				}
 				return $newArray;
 			}else{
-				throw new Exception("Отсутствуют значения параметров для вставки");
+				throw new \Exception("Отсутствуют значения параметров для вставки");
 			}
 		}
 

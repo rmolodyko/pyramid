@@ -1,5 +1,6 @@
 <?php
 
+	namespace framework\orm\query;
 	/**
 	 * Класс предназначен для выборки данных с БД
 	 * 
@@ -76,7 +77,7 @@
 			if($with !== null){
 				$this->relatedTable = strtolower(trim($with));
 			}else{
-				throw new Exception("Ожидалось имя таблицы");
+				throw new \Exception("Ожидалось имя таблицы");
 				
 			}
 			return $this;
@@ -103,7 +104,7 @@
 		 */
 		public function order($column,$sortDesc = false){
 			if((!is_string($column)&&!is_numeric($column))||(!is_bool($sortDesc))){
-				throw new Exception("Переданны неверные данные");
+				throw new \Exception("Переданны неверные данные");
 			}
 			$this->orderColumn = [$column,$sortDesc];
 			return $this;
@@ -119,12 +120,12 @@
 		 */
 		public function limit($limitStart,$limitRange = null){
 			if(!is_numeric($limitStart)){
-				throw new Exception("Переданны неверные данные");
+				throw new \Exception("Переданны неверные данные");
 			}
 			$this->limit = [$limitStart];
 			if($limitRange !== null){
 				if(!is_numeric($limitRange)){
-					throw new Exception("Переданны неверные данные");
+					throw new \Exception("Переданны неверные данные");
 				}
 				$this->limit[1] = $limitRange;
 			}
@@ -176,7 +177,7 @@
 		protected function isKeysThenGetStrQuery(){
 			if(isset($this->keys)&&!empty($this->keys)){
 				foreach($this->keys as $key => $value){
-					if(!is_string($value)) throw new Exception("Переданны неверные данные");
+					if(!is_string($value)) throw new \Exception("Переданны неверные данные");
 				}
 				return " {$this->isTableNameThenGetStrQuery()}.".implode(" , {$this->isTableNameThenGetStrQuery()}.",$this->keys)." ";
 			}else{
@@ -196,7 +197,7 @@
 						if(isset($v[0])&&!empty($v[0])){
 							$arrayAttr[] = "$k = ".$v[0];
 						}else{
-							throw new Exception("Неверное имя таблицы или псевдоним");
+							throw new \Exception("Неверное имя таблицы или псевдоним");
 						}
 					}else{
 						$arrayAttr[] = "$k = :".str_replace(".","_",$k)."_unique";
@@ -259,7 +260,7 @@
 			$STH =  $this->getDBHandler()->prepare("SHOW COLUMNS FROM {$this->relatedTable}");
 			$STH->execute();
 			$mw = [];
-			$STH->setFetchMode(PDO::FETCH_ASSOC);
+			$STH->setFetchMode(\PDO::FETCH_ASSOC);
 			while($obj = $STH->fetch()){
 				$mw[] = $obj['Field'];
 			}
@@ -334,7 +335,7 @@
 			//print_r(array_merge($arr1,$arr2));
 			$STH->execute(array_merge($arr1,$arr2));
 			$mw = [];
-			$STH->setFetchMode(PDO::FETCH_ASSOC);
+			$STH->setFetchMode(\PDO::FETCH_ASSOC);
 			while($obj = $STH->fetch()){
 				$mw[] = $obj;
 			}

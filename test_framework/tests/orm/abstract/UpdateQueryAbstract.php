@@ -1,8 +1,11 @@
 <?php
-  
+
+	namespace test\framework\orm\query;
+	use \framework\orm\query\SelectNativeQuery;
+
 	require_once(dirname(__FILE__).'/../../../lib/include.php');
 
-	class UpdateQueryAbstract extends DBTestClass{
+	class UpdateQueryAbstract extends \test\framework\helper\DBTestClass{
 
 		public function testIfChangeRow(){
 			$dataBefore = (new SelectNativeQuery('movies'))->where(['id'=>1])->execute();
@@ -57,21 +60,21 @@
 			try{
 				$this->expectError(1);
 				$this->getObjQuery()->set(['titleooo'=>'New movies','format'=>'DVD','year'=>9999])->where(['id'=>1])->execute();
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(1);
 			}
 
 			try{
 				$this->expectError(2);
 				$this->getObjQuery()->set(['id'=>2,'title'=>'New movies','format'=>'DVD','year'=>1111])->where(['id'=>1])->execute();
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(2);
 			}
 
 			try{
 				$this->expectError(3);
 				$this->getObjQuery()->set(['title'=>'New movies','format'=>'DVD','year'=>[]])->where(['id'=>1])->execute();
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(3);
 			}
 
@@ -79,63 +82,63 @@
 				$this->expectError(4);
 				$this->getObjQuery()->set([])->where(['id'=>1])->execute();
 				
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(4);
 			}
 
 			try{
 				$this->expectError(5);
 				$this->getObjQuery()->set(['title'=>'New movies','format'=>'DVD','year'=>9999])->where([])->execute();
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(5);
 			}
 
 			try{
 				$this->expectError(6);
 				$this->getObjQuery()->set()->where(['id'=>1])->execute();
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(6);
 			}
 
 			try{
 				$this->expectError(7);
 				$this->getObjQuery()->set(['id'=>1,'title'=>'New movies','format'=>'DVD','year'=>9999])->where([])->execute();
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(7);
 			}
 
 			try{
 				$this->expectError(8);
 				$this->getObjQuery()->set(['id'=>1,'title'=>'New movies','format'=>'DVD','year'=>9999])->where()->execute();
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(8);
 			}
 
 			try{
 				$this->expectError(9);
 				$this->getObjQuery()->set(['id'=>1,'title'=>'New movies','format'=>'DVD','year'=>9999])->execute();
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(9);
 			}
 
 			try{
 				$this->expectError(10);
 				$this->getObjQuery()->set(['title'=>'New movies','format'=>'DVD','year'=>9999])->execute();
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(10);
 			}
 
 			try{
 				$this->expectError(11);
 				$this->getObjQuery()->set()->execute();
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(11);
 			}
 
 			try{
 				$this->expectError(12);
 				$this->getObjQuery()->execute();
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(12);
 			}
 

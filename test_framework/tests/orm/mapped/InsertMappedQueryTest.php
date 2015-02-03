@@ -1,5 +1,8 @@
 <?php
- 
+
+	namespace test\framework\orm\query;
+	use \framework\orm\query;
+
 	require_once(dirname(__FILE__).'/../../../lib/include.php');
 
 	class SampleClassFotTest{}
@@ -8,7 +11,7 @@
 
 		public function getObjQuery(){
 			$obj = new Movies;
-			return new InsertMappedQuery(new Movies);
+			return new query\InsertMappedQuery(new Movies);
 		}
 
 		public function testCountRow(){
@@ -19,7 +22,7 @@
 			$obj->format = 'DVD';
 			$obj->year = 9991;
 
-			(new InsertMappedQuery($obj))->execute();
+			(new query\InsertMappedQuery($obj))->execute();
 			$rowCountAfter = $this->getConnection()->getRowCount('movies');
 
 			$this->assertEquals($rowCountAfter,$rowCountBefore+1);
@@ -33,7 +36,7 @@
 			$obj->format = 'DVD';
 			$obj->year = 9991;
 
-			(new InsertMappedQuery($obj))->execute();
+			(new query\InsertMappedQuery($obj))->execute();
 
 			$rowCountAfter = $this->getConnection()->getRowCount('movies');
 
@@ -48,9 +51,9 @@
 			$obj->format = 'DVD';
 			$obj->year = 2345;
 
-			(new InsertMappedQuery($obj))->execute();
+			(new query\InsertMappedQuery($obj))->execute();
 
-			$data = (new SelectNativeQuery('movies'))->where(['year'=>2345])->execute();
+			$data = (new query\SelectNativeQuery('movies'))->where(['year'=>2345])->execute();
 			$this->assertEquals(count($data),1);
 		}
 
@@ -64,9 +67,9 @@
 				$obj->format = 'DVD';
 				$obj->year = null;
 
-				(new InsertMappedQuery($obj))->execute();
+				(new query\InsertMappedQuery($obj))->execute();
 
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(1);
 			}
 
@@ -79,9 +82,9 @@
 				$obj->year = null;
 				$obj->rrrrr = '';
 
-				(new InsertMappedQuery($obj))->execute();
+				(new query\InsertMappedQuery($obj))->execute();
 
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(2);
 			}
 
@@ -89,36 +92,36 @@
 				$this->expectError(3);
 
 				$obj = new Movies;
-				(new InsertMappedQuery($obj))->execute();
+				(new query\InsertMappedQuery($obj))->execute();
 
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(3);
 			}
 
 			try{
 				$this->expectError(4);
 
-				(new InsertMappedQuery(new SampleClassFotTest))->execute();
+				(new query\InsertMappedQuery(new SampleClassFotTest))->execute();
 
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(4);
 			}
 
 			try{
 				$this->expectError(5);
 
-				(new InsertMappedQuery(null))->execute();
+				(new query\InsertMappedQuery(null))->execute();
 
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(5);
 			}
 
 			try{
 				$this->expectError(6);
 
-				(new InsertMappedQuery())->execute();
+				(new query\InsertMappedQuery())->execute();
 
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(6);
 			}
 
@@ -130,9 +133,9 @@
 				$obj->format = 'DVD';
 				$obj->year = 2345;
 
-				(new InsertMappedQuery(new Movies))->values(['id'=>100,'title'=>'dsfs','format'=>'DVD','year'=>1000])->execute();
+				(new query\InsertMappedQuery(new Movies))->values(['id'=>100,'title'=>'dsfs','format'=>'DVD','year'=>1000])->execute();
 
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(7);
 			}
 

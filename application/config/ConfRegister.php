@@ -1,5 +1,6 @@
 <?php
 
+	namespace app\config;
 	class ConfRegister{
 
 		public function getParam($k){

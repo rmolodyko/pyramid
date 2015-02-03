@@ -1,10 +1,14 @@
 <?php
- 
+
+	namespace test\framework\orm\query;
+	use \framework\orm\query\SelectNativeQuery;
+	use \framework\orm\query\UpdateMappedQuery;
+
 	require_once(dirname(__FILE__).'/../../../lib/include.php');
 
 	class UpdateSampleClassFotTest{}
 
-	class UpdateMappedQueryTest extends DBTestClass{
+	class UpdateMappedQueryTest extends \test\framework\helper\DBTestClass{
 
 		public function testIfChangeRow(){
 			$dataBefore = (new SelectNativeQuery('movies'))->where(['id'=>1])->execute();
@@ -89,7 +93,7 @@
 				$obj->format = 'VHS';
 				$obj->year = 9999;
 				(new UpdateMappedQuery($obj))->where(['id'=>1])->execute();
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(1);
 			}
 
@@ -97,7 +101,7 @@
 				$this->expectError(2);
 				$obj = new Movies;
 				(new UpdateMappedQuery($obj))->where(['id'=>1])->execute();
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(2);
 			}
 
@@ -105,7 +109,7 @@
 				$this->expectError(3);
 				$obj = new UpdateSampleClassFotTest;
 				(new UpdateMappedQuery($obj))->where(['id'=>1])->execute();
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(3);
 			}
 
@@ -116,14 +120,14 @@
 				$obj->format = 'VHS';
 				$obj->year = 9999;
 				(new UpdateMappedQuery($obj))->execute();
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(4);
 			}
 
 			try{
 				$this->expectError(5);
 				(new UpdateMappedQuery())->where(['id'=>1])->execute();
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(5);
 			}
 

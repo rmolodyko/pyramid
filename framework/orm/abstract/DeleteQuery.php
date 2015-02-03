@@ -1,5 +1,6 @@
 <?php
 
+	namespace framework\orm\query;
 	/**
 	 * Класс предназначен для удаления данных из БД
 	 * 

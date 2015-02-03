@@ -1,9 +1,10 @@
 <?php
 
+	namespace test\framework\helper;
 	/**
 	 * Класс от которого наследуются все тестовые классы, содержит необходимый функционал
 	 */
-	class DBTestClass extends PHPUnit_Extensions_Database_TestCase{
+	class DBTestClass extends \PHPUnit_Extensions_Database_TestCase{
 
 		protected $pdo = null;
 
@@ -13,7 +14,7 @@
 
 		public function getConnection()
 		{
-			$this->pdo = new PDO('mysql:host=localhost;dbname=movie_db_test', 'root', 'muha1990');
+			$this->pdo = new \PDO('mysql:host=localhost;dbname=movie_db_test', 'root', 'muha1990');
 			return $this->createDefaultDBConnection($this->pdo, 'movie_db_test');
 		}
 
@@ -31,7 +32,7 @@
 			$STH =  $this->pdo->prepare($sql);
 			$STH->execute();
 			$mw = [];
-			$STH->setFetchMode(PDO::FETCH_ASSOC);
+			$STH->setFetchMode(\PDO::FETCH_ASSOC);
 			while($obj = $STH->fetch()){
 				$mw[] = $obj;
 			}

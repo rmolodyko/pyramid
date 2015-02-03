@@ -1,5 +1,6 @@
 <?php
 
+	namespace framework\orm\query;
 	/**
 	 * Класс предназначен для вставки данных в БД
 	 * 
@@ -21,7 +22,7 @@
 		 */
 		public function values(Array $values){
 			if(!isset($values)||empty($values)){
-				throw new Exception("Отсутствуют значения параметров для вставки");
+				throw new \Exception("Отсутствуют значения параметров для вставки");
 			}
 			$this->values = $values;
 			return $this;
@@ -36,7 +37,7 @@
 				$queryString = ' ( '.implode(' , ',array_flip($this->values)).' ) ';
 				return $queryString;
 			}else{
-				throw new Exception("Отсутствуют значения параметров для вставки");
+				throw new \Exception("Отсутствуют значения параметров для вставки");
 			}
 		}
 
@@ -49,7 +50,7 @@
 				$queryString = '( :'.implode(' , :',array_flip($this->values)).' ) ';
 				return $queryString;
 			}else{
-				throw new Exception("Отсутствуют значения параметров для вставки");
+				throw new \Exception("Отсутствуют значения параметров для вставки");
 			}
 		}
 
@@ -61,7 +62,7 @@
 			if(isset($this->values)&&!empty($this->values)){
 				return $this->values;
 			}else{
-				throw new Exception("Отсутствуют значения параметров для вставки");
+				throw new \Exception("Отсутствуют значения параметров для вставки");
 			}
 		}
 
@@ -91,10 +92,10 @@
 				if(isset($obj[0])&&((int)$obj[0])){
 					return $obj[0];
 				}else{
-					throw new Exception("Произошла ошибка при получении ID последней вставки");
+					throw new \Exception("Произошла ошибка при получении ID последней вставки");
 				}
 			}else{
-				throw new Exception("Произошла ошибка при выполнении запроса");
+				throw new \Exception("Произошла ошибка при выполнении запроса");
 			}
 		}
 	}

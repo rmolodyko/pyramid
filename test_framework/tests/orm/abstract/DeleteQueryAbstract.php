@@ -1,8 +1,11 @@
 <?php
 
+	namespace test\framework\orm\query;
+	use \framework\orm\query\SelectNativeQuery;
+
 	require_once(dirname(__FILE__).'/../../../lib/include.php');
 
-	class DeleteQueryAbstract extends DBTestClass{
+	class DeleteQueryAbstract extends \test\framework\helper\DBTestClass{
 
 		public function testCountRow(){
 			$rowCountBefore = $this->getConnection()->getRowCount('movies');
@@ -54,21 +57,21 @@
 			try{
 				$this->expectError(1);
 				$this->getObjQuery()->where(0)->execute();
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(1);
 			}
 
 			try{
 				$this->expectError(2);
 				$this->getObjQuery()->where("dss")->execute();
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(2);
 			}
 
 			try{
 				$this->expectError(3);
 				$this->getObjQuery()->where(['id'=>['ppp']])->execute();
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$this->issuedError(3);
 			}
 

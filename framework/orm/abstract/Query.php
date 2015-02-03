@@ -1,5 +1,6 @@
 <?php
 
+	namespace framework\orm\query;
 	/**
 	 * Тип данных, и функционал для запросов к БД
 	 * 
@@ -31,7 +32,7 @@
 		 * @return PDO
 		 */
 		protected function getDBHandler(){
-			return DBHelper::getDBHandler();
+			return \framework\orm\helper\DBHelper::getDBHandler();
 		}
 
 		/**
@@ -67,7 +68,7 @@
 			if(isset($this->tableName)&&!empty($this->tableName)){
 				return " {$this->tableName} ";
 			}else{
-				throw new Exception("Не указано имя таблицы");
+				throw new \Exception("Не указано имя таблицы");
 			}
 		}
 
@@ -111,7 +112,7 @@
 		protected function getNativePropertiesModel($entity){
 
 			$values = [];
-			$ref = new ReflectionClass(get_class($entity));
+			$ref = new \ReflectionClass(get_class($entity));
 			foreach($ref->getProperties() as $v){
 				if($v->getDeclaringClass()->getName() !== get_class($entity)) continue;
 				$key_name = $v->getName();
