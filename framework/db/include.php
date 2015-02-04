@@ -3,7 +3,7 @@
 	namespace framework\helper;
 	use \app\config\ConfRegister;
 
-	require_once("/var/www/pyramid/application/sample/config/ConfRegister.php");
+	require_once(__DIR__."/../../application/sample/config/ConfRegister.php");
 
 	spl_autoload_register(function($class_name){
 		/*$class_name = 'pyramid\lib\helper';
