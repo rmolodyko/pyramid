@@ -2,7 +2,7 @@
 
 	namespace pyramid\db\query\mapped;
 	use \pyramid\db\query\UpdateQuery;
-	use \pyramid\db\model\Model;
+	use \pyramid\db\model\DomainModel;
 	/**
 	 * Класс предназначен для обновления данных в БД, отображенных данных
 	 *  
@@ -14,7 +14,7 @@
 		 * Инициализируем объект запроса, объектом модели
 		 * @param InsertMappedQuery Возвращает объект для дальнейшего вызова методов над ним
 		 */
-		public function __construct(Model $entity){
+		public function __construct(DomainModel $entity){
 			//Убрать имя пространства и получить имя класса модели
 			$this->tableName = strtolower(preg_replace('/.*\\\/i','',get_class($entity)));
 			parent::set($this->getNativePropertiesModel($entity));

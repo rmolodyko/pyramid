@@ -3,6 +3,7 @@
 	namespace pyramid\db\query;
 	/**
 	 * Класс предназначен для выборки данных с БД
+	 * @todo Протестировать функционал Single
 	 */
 	abstract class SelectQuery extends Query{
 
@@ -29,7 +30,7 @@
 		 * @var Array
 		 */
 		protected $limit;
-		
+
 		/**
 		 * Данные для ON строки запроса
 		 * @var Array
@@ -62,6 +63,17 @@
 		 */
 		public function keys(Array $keys = null){
 			$this->keys = $keys;
+			return $this;
+		}
+
+		/**
+		 * Метод устанавливает вывести один результат запроса или множество
+		 * @param  Boolean $k Выводить один результат или нет
+		 * @return SelectQuery Возвращает объект для дальнейшего вызова методов над ним
+		 */
+		public function single($k = false){
+			if($k)
+				$this->limit(0,1);
 			return $this;
 		}
 
@@ -112,7 +124,7 @@
 		 * @param  Integer  $limitStart Номер с которого начинать выводить данные 
 		 *                              Если не передан limitRange то данная переменная 
 		 *                              выступает как колличество результатов
-		 * @param  Boolean  $limitRange Сколько значений выводить
+		 * @param  Integer  $limitRange Сколько значений выводить
 		 * @return SelectQuery Возвращает объект для дальнейшего вызова методов над ним
 		 */
 		public function limit($limitStart,$limitRange = null){

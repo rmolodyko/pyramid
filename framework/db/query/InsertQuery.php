@@ -31,7 +31,12 @@
 		 */
 		protected function isValuesThenGetStrQueryKeys(){
 			if(isset($this->values)&&!empty($this->values)){
-				$queryString = ' ( '.implode(' , ',array_flip($this->values)).' ) ';
+				/*
+				 * Костыль!!!
+				 * Забыть о свойстве модели $id
+				 */
+				if(isset($this->values['id'])&&(!((int)$this->values['id']))) unset($this->values['id']);
+				$queryString = ' ( '.implode(' , ',array_keys($this->values)).' ) ';
 				return $queryString;
 			}else{
 				throw new \Exception("Отсутствуют значения параметров для вставки");
@@ -44,7 +49,7 @@
 		 */
 		protected function isValuesThenGetStrQueryValues(){
 			if(isset($this->values)&&!empty($this->values)){
-				$queryString = '( :'.implode(' , :',array_flip($this->values)).' ) ';
+				$queryString = '( :'.implode(' , :',array_keys($this->values)).' ) ';
 				return $queryString;
 			}else{
 				throw new \Exception("Отсутствуют значения параметров для вставки");

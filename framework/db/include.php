@@ -6,10 +6,7 @@
 	require_once(__DIR__."/../../application/sample/config/ConfRegister.php");
 
 	spl_autoload_register(function($class_name){
-		/*$class_name = 'pyramid\lib\helper';
-		$class_name = '33';*/
-		
-		
+
 		$dsp = DIRECTORY_SEPARATOR;
 		
 		if(strrpos($class_name, 'pyramid\\test\\') === false){
@@ -31,3 +28,19 @@
 			}
 		}
 	});
+
+
+	/* ------------------------------- */
+
+	//Пример роботы с созданным функционалом
+	$movies = new \pyramid\db\model\Movies();
+	//$movies->id = 112;
+	$movies->title = 'RRReee11';
+	$movies->format = 'DVD';
+	$movies->year = 1111;
+	$res1 = $movies->save();
+	$res = $movies->findAllByAttributes();
+	//print_r($res->getRow(0));
+	foreach($res as $value){
+		print_r($value);
+	}
